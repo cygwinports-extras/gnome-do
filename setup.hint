@@ -1,5 +1,5 @@
 category: X11
-requires: libgcc1 libglib2.0_0 libgtk2.0_0 libX11_6 mono-gconf-sharp2.0 mono-glib-sharp2.0 mono-Gnome-Keyring1.0 mono-gnome-sharp2.24 mono-gnome-vfs-sharp2.0 mono-gnomedesktop-sharp2.20 mono-gtk-sharp2.0 mono-Mono-Addins0.2 mono-NDesk-DBus1.0 mono-NDesk-DBus-GLib1.0 mono-notify-sharp0.4 mono-pango-sharp2.0 mono-rsvg2-sharp2.18 mono-wnck-sharp2.20
+requires: libglib2.0_0 libgtk2.0_0 libX11_6 mono mono-gconf-sharp2.0 mono-glib-sharp2.0 mono-Gnome-Keyring1.0 mono-gnome-sharp2.24 mono-gnome-vfs-sharp2.0 mono-gnomedesktop-sharp2.20 mono-gtk-sharp2.0 mono-Mono-Addins0.2 mono-NDesk-DBus1.0 mono-NDesk-DBus-GLib1.0 mono-notify-sharp0.4 mono-pango-sharp2.0
 sdesc: "Search-based launcher"
 ldesc: "Do is an intelligent launcher tool that makes performing common 
 tasks on your computer simple and efficient. Do not only allows you to 

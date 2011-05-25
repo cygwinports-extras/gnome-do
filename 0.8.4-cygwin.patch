@@ -1,0 +1,44 @@
+--- origsrc/gnome-do-0.8.4/Do/gnome-do.in	2009-10-06 03:05:46.000000000 -0500
++++ src/gnome-do-0.8.4/Do/gnome-do.in	2011-05-24 19:37:45.202725600 -0500
+@@ -17,7 +17,7 @@ dbus-send --session --type=method_call -
+ 	'/org/gnome/Do/Controller' 'org.gnome.Do.Controller.Summon'
+ 
+ # If Do is not running, run it.
+-if pgrep -u "`id -u`" '^gnome-do$' >/dev/null; then
++if ! pgrep -u "`id -u`" '^gnome-do$' >/dev/null; then
+ 	mono "$GNOME_DO_EXE" "$@"
+ fi
+ while [ "$?" -eq "20" ]; do
+--- origsrc/gnome-do-0.8.4/Do.Platform.Linux/Do.Platform.Linux.dll.config.in	2009-08-10 03:16:46.000000000 -0500
++++ src/gnome-do-0.8.4/Do.Platform.Linux/Do.Platform.Linux.dll.config.in	2011-05-24 19:34:11.768517900 -0500
+@@ -1,3 +1,4 @@
+ <configuration>
+-	<dllmap dll="libdo" target="@expanded_libdir@/@PACKAGE@/libdo.so"/>
++	<dllmap dll="libdo" target="@expanded_libdir@/@PACKAGE@/libdo.so" platform="!cygwin" />
++	<dllmap dll="libdo" target="@expanded_libdir@/@PACKAGE@/cygdo.dll" platform="cygwin" />
+ </configuration>
+--- origsrc/gnome-do-0.8.4/build.rules.mk	2009-06-25 22:39:51.000000000 -0500
++++ src/gnome-do-0.8.4/build.rules.mk	2011-05-24 19:39:14.754847700 -0500
+@@ -24,7 +24,11 @@ OUTPUT_FILES = \
+ 
+ moduledir = $(pkglibdir)
+ # Install libraries as data; there's no need for them to be excutable
++if ENABLE_DEBUG
+ module_DATA = $(foreach file,$(filter %.dll,$(OUTPUT_FILES)),$(file) $(file).mdb) $(foreach file,$(filter %.exe,$(OUTPUT_FILES)),$(file).mdb)
++else
++module_DATA = $(filter %.dll,$(OUTPUT_FILES))
++endif
+ # Install executables as scripts
+ module_SCRIPTS = $(filter %.exe,$(OUTPUT_FILES))
+ 
+--- origsrc/gnome-do-0.8.4/libdo/Makefile.am	2009-06-25 22:39:51.000000000 -0500
++++ src/gnome-do-0.8.4/libdo/Makefile.am	2011-05-24 19:38:33.005459800 -0500
+@@ -17,7 +17,7 @@ libdo_la_SOURCES =		\
+ 	eggaccelerators.h	\
+ 	eggaccelerators.c
+ 
+-libdo_la_LDFLAGS = -export-dynamic -module -avoid-version
++libdo_la_LDFLAGS = -export-dynamic -module -avoid-version -no-undefined
+ libdo_la_LIBADD = $(LIBDO_LIBS)
+ 
+ maintainer-clean-local:

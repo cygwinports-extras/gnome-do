@@ -1,0 +1,17 @@
+inherit mono gnome2
+
+DESCRIPTION="Intelligent task launcher"
+HOMEPAGE="http://do.davebsd.com/"
+SRC_URI="http://launchpad.net/do/trunk/${PV[1]}.${PV[2]}.${PV[3]}/+download/${P}.tar.gz"
+
+PATCH_URI="
+	mirror://portage/gnome-extra/${PN}/files/${P}-mono-2.8.patch
+	0.8.4-cygwin.patch
+"
+
+DEPS_PATH="/usr/lib/gnome-do"
+DIFF_EXCLUDES="AssemblyInfo.cs"
+
+ACLOCAL_FLAGS="-I m4 -I m4/shamrock"
+CYGCONF_ARGS="--enable-release"
+MAKEOPTS+=" -j1"
