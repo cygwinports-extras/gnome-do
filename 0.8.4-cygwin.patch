@@ -17,20 +17,6 @@
 +	<dllmap dll="libdo" target="@expanded_libdir@/@PACKAGE@/libdo.so" platform="!cygwin" />
 +	<dllmap dll="libdo" target="@expanded_libdir@/@PACKAGE@/cygdo.dll" platform="cygwin" />
  </configuration>
---- origsrc/gnome-do-0.8.4/build.rules.mk	2009-06-25 22:39:51.000000000 -0500
-+++ src/gnome-do-0.8.4/build.rules.mk	2011-05-24 19:39:14.754847700 -0500
-@@ -24,7 +24,11 @@ OUTPUT_FILES = \
- 
- moduledir = $(pkglibdir)
- # Install libraries as data; there's no need for them to be excutable
-+if ENABLE_DEBUG
- module_DATA = $(foreach file,$(filter %.dll,$(OUTPUT_FILES)),$(file) $(file).mdb) $(foreach file,$(filter %.exe,$(OUTPUT_FILES)),$(file).mdb)
-+else
-+module_DATA = $(filter %.dll,$(OUTPUT_FILES))
-+endif
- # Install executables as scripts
- module_SCRIPTS = $(filter %.exe,$(OUTPUT_FILES))
- 
 --- origsrc/gnome-do-0.8.4/libdo/Makefile.am	2009-06-25 22:39:51.000000000 -0500
 +++ src/gnome-do-0.8.4/libdo/Makefile.am	2011-05-24 19:38:33.005459800 -0500
 @@ -17,7 +17,7 @@ libdo_la_SOURCES =		\
